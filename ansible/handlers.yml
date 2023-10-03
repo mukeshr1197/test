@@ -1,0 +1,19 @@
+---
+- name: Update nginx index page
+  hosts: aws
+  become: yes
+  tasks: 
+    - name: update index file
+      copy:
+        src: index.nginx-debian.html
+        dest: /var/www/html/index.nginx-debian.html
+
+      notify: 
+        - Restarting a nginx service
+
+  handlers:
+    - name: Restarting a nginx service
+      service: 
+        name: nginx
+        state: restarted
+        

@@ -1,0 +1,22 @@
+---
+- name: Install multiple os in Ubuntu
+  hosts: Ubuntu
+  become: yes
+  vars:
+    software-packages:
+      - openjdk-11-jdk #java
+      - python3  #python
+      - nginx
+      - mysql-server #mysql
+
+  tasks: 
+   - name: Update apt cache
+     apt:  
+       update_cache: yes
+
+   - name: Install software packages
+     apt: 
+       name: "{{item}}" #denotes the list of items
+       state: present
+     loop: "{{software_packages}}" #call the variable list
+     

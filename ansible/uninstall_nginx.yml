@@ -1,0 +1,20 @@
+---
+-  name: Uninstall Apache Package in System
+   hosts: all
+   become: yes #switch to root user
+   tasks:
+     - name: Uninstall Apache in Ubuntu
+       apt:
+         update_cache: yes #update apt
+         name: apache2
+         state: absent
+         auto remove: true
+         purge: true
+       when: ansible_distribution == 'Ubuntu'
+     - name: Uninstall Apache in Amazon
+       dnf:
+         name: httpd
+         state: absent
+         auto remove: true
+         purge: true
+       when: ansible_distribution == 'Amazon'

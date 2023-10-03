@@ -1,0 +1,16 @@
+---
+- name: Qtree Server Setup
+  hosts: all
+  tasks:
+    - name: create user
+      User:
+        name: testuser
+        password: paris@123
+
+
+    - name: create a file
+      File:
+        path: /root/serversetup.yml
+        state: touch
+     
+        
